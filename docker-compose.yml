@@ -11,5 +11,18 @@ services:
     volumes:
       - order-postgres-data:/var/lib/postgresql/data
 
+  postgres-inventory:
+    image: postgres:16-alpine
+    container_name: inventory-service-db
+    environment:
+      POSTGRES_DB: inventorydb
+      POSTGRES_USER: inventory_user
+      POSTGRES_PASSWORD: inventory_pass
+    ports:
+      - "5434:5432"
+    volumes:
+      - inventory-postgres-data:/var/lib/postgresql/data
+
 volumes:
   order-postgres-data:
+  inventory-postgres-data:
