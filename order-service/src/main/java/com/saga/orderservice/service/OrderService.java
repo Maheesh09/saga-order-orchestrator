@@ -1,6 +1,7 @@
 package com.saga.orderservice.service;
 
 import com.saga.orderservice.domain.Order;
+import com.saga.orderservice.domain.OrderStatus;
 import com.saga.orderservice.dto.CreateOrderRequest;
 import com.saga.orderservice.dto.OrderResponse;
 import com.saga.orderservice.exception.OrderNotFoundException;
@@ -56,5 +57,20 @@ public class OrderService {
                 .stream()
                 .map(orderMapper::toResponse)
                 .toList();
+    }
+
+    @Transactional
+    public OrderResponse updateOrderStatus(Long orderId, OrderStatus newStatus) {
+        log.info("Updating order {} to status {}", orderId, newStatus);
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+        order.updateStatus(newStatus);
+        Order savedOrder = orderRepository.save(order);
+
+        log.info("Order {} status updated to {}", orderId, newStatus);
+
+        return orderMapper.toResponse(savedOrder);
     }
 }
