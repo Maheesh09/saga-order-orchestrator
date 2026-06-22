@@ -31,6 +31,10 @@ spring:
         spring.json.trusted.packages: "com.saga.inventoryservice.event"
         spring.json.use.type.headers: false
         spring.json.value.default.type: com.saga.inventoryservice.event.StockReservationRequested
-
+  saga:
+    topics:
+      stock-reservation-requested: stock-reservation-requested
+      stock-reservation-result: stock-reservation-result
+      
 server:
   port: 8082
