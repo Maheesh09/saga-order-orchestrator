@@ -32,6 +32,11 @@ spring:
         spring.json.use.type.headers: false
         spring.json.value.default.type: com.saga.orderservice.event.StockReservationResult
 
+saga:
+  topics:
+    stock-reservation-requested: stock-reservation-requested
+    stock-reservation-result: stock-reservation-result
+
 server:
   port: 8081
 
