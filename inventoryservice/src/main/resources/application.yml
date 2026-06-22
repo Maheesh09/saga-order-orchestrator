@@ -16,5 +16,21 @@ spring:
         format_sql: true
     open-in-view: false
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.
+      properties:
+        spring.json.add.type.headers: false
+    consumer:
+      group-id: inventory-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.saga.inventoryservice.event"
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.saga.inventoryservice.event.StockReservationRequested
+
 server:
   port: 8082
